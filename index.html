@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Your App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        #progress {
+            width: 100%;
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+            height: 30px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        #bar {
+            height: 100%;
+            background-color: #4caf50;
+            width: 0;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        #installButton {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Download Your App</h1>
+    <p>Click the button below to start the download.</p>
+    <button onclick="startDownload()">Download Now</button>
+    <div id="progress">
+        <div id="bar">0%</div>
+    </div>
+    <button id="installButton" onclick="startInstallation()">Install Now</button>
+
+    <script>
+        function startDownload() {
+            const fileUrl = 'https://apk.e-droid.net/apk/app3067556-9d74gq.apk?v=3';
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = 'yourapp.apk';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            let progress = 0;
+            const progressBar = document.getElementById('bar');
+            const installButton = document.getElementById('installButton');
+
+            const interval = setInterval(() => {
+                progress += 10;
+                if (progress > 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                }
+                progressBar.style.width = progress + '%';
+                progressBar.innerText = progress + '%';
+
+                if (progress === 100) {
+                    installButton.style.display = 'inline-block';
+                }
+            }, 500);
+        }
+
+        function startInstallation() {
+            // Attempt to open the APK file for installation
+            const fileUrl = 'https://apk.e-droid.net/apk/app3067556-9d74gq.apk?v=3';
+            window.location.href = fileUrl;
+        }
+    </script>
+</body>
+</html>
